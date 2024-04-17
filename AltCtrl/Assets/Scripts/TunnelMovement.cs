@@ -13,6 +13,7 @@ public class TunnelMovement : MonoBehaviour
     public GameObject[] obstaclePrefabs;
     public float chanceObstacle = 0.5f;
 
+
     private void Start()
     {
         if(SpawnPosition != null && startingPosition == null)
