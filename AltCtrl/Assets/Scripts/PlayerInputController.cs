@@ -11,28 +11,32 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
     //refrence to the action map we are implementing
     private Rigidbody _rigidBody;
     //refrence to the action map we are implementing
+    private Animator _animator;
+    //refrence to the action map we are implementing
 
 
     [SerializeField]
     private float _verticalForce;
     //scroll speed of the mouse wheel
-    
-    private float targetH = 0f;
-    private float targetV = 0f;
-    private float tempAngleH;
-    private float tempAngleV;
-    private bool input;
+    [SerializeField]
+    private float _horizontalForce;
+    //scroll speed of the mouse wheel
 
-    private float maxHorizontalTurn = 45;
-    private float maxVerticalTurn = 45;
-    private float rollSpeed = 20;
-    private float pitchSpeed = 20;
+    private float _tempHoriz;
+    private float _tempVert;
+    private float _dampTime;
+
+    private bool _leftPressed;
+    private bool _rightPressed;
 
     // Start is called before the first frame update
     void Start()
     {
         //Get a refrence to our rigidbody
         _rigidBody = GetComponent<Rigidbody>();
+
+        //Get a refrence to our rigidbody
+        _animator = GetComponent<Animator>();
 
         //Get a reference to our action map
         actions = new PlayerControlls().PlayerMovement;
@@ -43,63 +47,33 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
 
     }
 
-    void FixedUpdate()
+    public void FixedUpdate()
     {
-        float threshold = 0.0005f;
-
-        //Get angle between current and targetH
-        float angleDelta = targetH-tempAngleH;
-
-        //if we are outside a threshold
-        if (Mathf.Abs(angleDelta) > threshold)
-        {
-            //Use angle to determine direction to turn
-            float direction = 1 * Mathf.Sign(angleDelta);
-
-            //Turn towards angle at given speed
-            tempAngleH += Time.deltaTime * rollSpeed * direction;
-        }
-        //else, set angle to targetH
-        else
-        {
-            tempAngleH = targetH;
-        }
-
-        angleDelta = targetV - tempAngleV;
-
-        //if we are outside a threshold
-        if (Mathf.Abs(angleDelta) > threshold)
-        {
-            //Use angle to determine direction to turn
-            float direction = 1 * Mathf.Sign(angleDelta);
-
-            //Turn towards angle at given speed
-            tempAngleV += Time.deltaTime * pitchSpeed * direction;
-        }
-        //else, set angle to targetH
-        else
-        {
-            tempAngleV = targetV;
-        }
-
-        transform.rotation = Quaternion.Euler(tempAngleV, 0, tempAngleH);
+        _animator.SetFloat("HorizMovement", _tempHoriz, _dampTime, Time.fixedDeltaTime);
+        _animator.SetFloat("VertMovement", _tempVert, _dampTime, Time.fixedDeltaTime);
     }
-
-
 
     public void OnRight(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            _rigidBody.AddForce(new Vector2(_verticalForce, 0), ForceMode.Force);
-            input = true;
-            targetH -= maxHorizontalTurn;
-
+            if (_leftPressed) 
+            {
+                _tempHoriz = 0; 
+                _rigidBody.velocity = new Vector3(0, _rigidBody.velocity.y, 0);
+                return; 
+            }
+            _rightPressed = true;
+            _rigidBody.AddForce(new Vector2(_horizontalForce, 0), ForceMode.Force);
+            _tempHoriz = 2;
+            _dampTime = 0.2f;
         }
         else if (context.canceled)
         {
-            //targetH += maxHorizontalTurn;
-            input = false;
+            _rightPressed = false;
+            _rigidBody.AddForce(new Vector2(-_horizontalForce, 0), ForceMode.Force);
+            _tempHoriz = 0;
+            _dampTime = 0.05f;
         }
 
     }
@@ -108,15 +82,23 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
     {
         if (context.performed)
         {
-            _rigidBody.AddForce(new Vector2(-_verticalForce, 0), ForceMode.Force);
-            input = true;
-            targetH += maxHorizontalTurn;
-
+            if (_rightPressed)
+            {
+                _tempHoriz = 0;
+                _rigidBody.velocity = new Vector3(0, _rigidBody.velocity.y, 0);
+                return;
+            }
+            _leftPressed = true;
+            _rigidBody.AddForce(new Vector2(-_horizontalForce, 0), ForceMode.Force);
+            _tempHoriz = -2;
+            _dampTime = 0.2f;
         }
         else if (context.canceled)
         {
-            targetH -= maxHorizontalTurn;
-            input = false;
+            _leftPressed = false;
+            _rigidBody.AddForce(new Vector2(_horizontalForce, 0), ForceMode.Force);
+            _tempHoriz = 0;
+            _dampTime = 0.05f;
         }
     }
 
@@ -125,13 +107,13 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
         if (context.performed)
         {
             _rigidBody.AddForce(new Vector2(0, _verticalForce), ForceMode.Force);
-            targetV -= maxVerticalTurn;
-            Debug.Log(targetV);
+            _tempVert = 10;
+            _dampTime = 0.05f;
         }
         else if (context.canceled)
         {
-            //targetV += maxVerticalTurn;
-            input = false;
+            _tempVert = 0;
+            _dampTime = 0.2f;
         }
     }
 }
