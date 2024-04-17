@@ -55,6 +55,7 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
 
     public void OnRight(InputAction.CallbackContext context)
     {
+        Debug.Log("Right");
         if (context.performed)
         {
             if (_leftPressed) 
@@ -80,8 +81,10 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
 
     public void OnLeft(InputAction.CallbackContext context)
     {
+        Debug.Log("Left");
         if (context.performed)
         {
+            
             if (_rightPressed)
             {
                 _tempHoriz = 0;
@@ -104,8 +107,10 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
 
     public void OnUp(InputAction.CallbackContext context)
     {
+        Debug.Log("Up");
         if (context.performed)
         {
+
             _rigidBody.AddForce(new Vector2(0, _verticalForce), ForceMode.Force);
             _tempVert = 10;
             _dampTime = 0.05f;
