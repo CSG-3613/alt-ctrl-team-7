@@ -13,9 +13,8 @@ public class DeleteCollider : MonoBehaviour
                 var collider = this.gameObject.transform.GetChild(i).gameObject.GetComponent<Collider>();
                 if (collider != null)
                 {
-                    Destroy(collider);
+                    DestroyImmediate(collider);
                 }
             }
         }
     }
-}
