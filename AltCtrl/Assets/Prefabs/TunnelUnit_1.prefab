@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 800332544982350373}
   - component: {fileID: -6659487289614340743}
+  - component: {fileID: 923835123023412112}
   m_Layer: 3
   m_Name: TunnelUnit_1
   m_TagString: Environment
@@ -69,9 +70,25 @@ MonoBehaviour:
   SpawnPosition: {fileID: 0}
   tunnelPrefabs:
   - {fileID: 7870608031611152750}
+  - {fileID: 6496794322286081027, guid: 62a9d5a7ad9c7084c8f462f023addae9, type: 3}
+  - {fileID: 2875521013338221566, guid: fe1d4858eae995b479f33a7e1b63b84c, type: 3}
+  - {fileID: 5066777818436860901, guid: 30d720a8d7ac345449fa55cd5fb5a834, type: 3}
+  - {fileID: 4110938334092121144, guid: 24359b02ffe164345bde14e7e9f8beef, type: 3}
   obstaclePrefabs:
   - {fileID: 7870608031611152750, guid: bf612bef217ee0f4796b48675737b9f6, type: 3}
   chanceObstacle: 0.3
+--- !u!114 &923835123023412112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7870608031611152750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8946bcbe5a129924ba2d018391bf354c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7919757093211888747
 GameObject:
   m_ObjectHideFlags: 0
