@@ -55,7 +55,7 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
 
     public void OnRight(InputAction.CallbackContext context)
     {
-        Debug.Log("Right");
+        //Debug.Log("Right");
         if (context.performed)
         {
             if (_leftPressed) 
@@ -81,7 +81,7 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
 
     public void OnLeft(InputAction.CallbackContext context)
     {
-        Debug.Log("Left");
+        //Debug.Log("Left");
         if (context.performed)
         {
             
@@ -107,7 +107,7 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
 
     public void OnUp(InputAction.CallbackContext context)
     {
-        Debug.Log("Up");
+        //Debug.Log("Up");
         if (context.performed)
         {
 
