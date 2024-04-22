@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DeleteCollider : MonoBehaviour
 {
-    [ExecuteInEditMode]
+    [ContextMenu("RemoveColliders")]
     void RemoveColliders()
     {
         for (int i = 0; i < transform.childCount; i++)
