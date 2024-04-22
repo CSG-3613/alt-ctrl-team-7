@@ -49,8 +49,7 @@ MonoBehaviour:
   velocity: 2
   endTunnelZ: -55
   SpawnPosition: {fileID: 0}
-  tunnelPrefabs:
-  - {fileID: 7870608031611152750}
+  tunnelPrefabs: []
   obstaclePrefabs: []
   chanceObstacle: 0.5
 --- !u!1 &8649666610016258895
