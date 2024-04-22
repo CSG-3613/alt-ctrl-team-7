@@ -19,7 +19,6 @@ public class TunnelMovement : MonoBehaviour
     {
         //get reference to GameManager
         gm = GameManager.instance;
-
         if(SpawnPosition != null && startingPosition == null)
         {
             startingPosition = SpawnPosition.transform;
