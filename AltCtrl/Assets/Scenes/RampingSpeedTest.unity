@@ -1734,7 +1734,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startSpeed: 2
   accelSpeed: 0.005
-  currSpeed: 0
+  currSpeed: 30
 --- !u!4 &1078917234
 Transform:
   m_ObjectHideFlags: 0
@@ -3080,7 +3080,6 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 705507995}
   - {fileID: 439347912}
   - {fileID: 739729233}
   - {fileID: 521956184}
@@ -3090,3 +3089,4 @@ SceneRoots:
   - {fileID: 1094266409}
   - {fileID: 639324481}
   - {fileID: 247351829}
+  - {fileID: 705507995}

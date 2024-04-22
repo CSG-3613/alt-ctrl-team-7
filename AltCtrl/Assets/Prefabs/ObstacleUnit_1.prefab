@@ -52,7 +52,7 @@ MonoBehaviour:
   tunnelPrefabs:
   - {fileID: 7870608031611152750}
   obstaclePrefabs: []
-  chanceObstacle: 0.5
+  chanceObstacle: 0
 --- !u!1 &8649666610016258895
 GameObject:
   m_ObjectHideFlags: 0

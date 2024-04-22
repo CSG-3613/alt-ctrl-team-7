@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class TunnelMovement : MonoBehaviour
 {
-    public float velocity = 2f;
+    public static GameManager gm;
+
+    public float velocity;
     public float endTunnelZ = -40;
     public GameObject SpawnPosition;
     public static Transform startingPosition;
@@ -15,6 +17,9 @@ public class TunnelMovement : MonoBehaviour
 
     private void Start()
     {
+        //get reference to GameManager
+        gm = GameManager.instance;
+
         if(SpawnPosition != null && startingPosition == null)
         {
             startingPosition = SpawnPosition.transform;
@@ -23,6 +28,9 @@ public class TunnelMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //get current velocity from GM
+        velocity = gm.getCurrSpeed();
+
         gameObject.transform.position = gameObject.transform.position + (Vector3.back)*velocity*Time.deltaTime;
         if (this.gameObject.transform.position.z<=endTunnelZ)
         {
