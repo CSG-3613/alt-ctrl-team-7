@@ -76,7 +76,7 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
     //on right input in action map
     public void OnRight(InputAction.CallbackContext context)
     {
-        //when the key is pressed
+        //Debug.Log("Right");
         if (context.performed)
         {
             //set the key as pressed
@@ -97,8 +97,20 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
         {
             //set the key as released
             _rightPressed = false;
-            //check if the other direction is pressed
-            if (_leftPressed)
+            _rigidBody.AddForce(new Vector2(-_horizontalForce, 0), ForceMode.Force);
+            _tempHoriz = 0;
+            _dampTime = 0.05f;
+        }
+
+    }
+
+    public void OnLeft(InputAction.CallbackContext context)
+    {
+        //Debug.Log("Left");
+        if (context.performed)
+        {
+            
+            if (_rightPressed)
             {
                 //if it is, move desired direction
                 MoveLeft();
@@ -113,7 +125,7 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
     //on left input in action map
     public void OnLeft(InputAction.CallbackContext context)
     {
-        //when the key is pressed
+        //Debug.Log("Up");
         if (context.performed)
         {
             //set the key as pressed
