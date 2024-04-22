@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.GraphicsBuffer;
+using UnityEngine.Windows;
 
 public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovementActions
 {
@@ -14,30 +11,39 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
     private Animator _animator;
     //refrence to the action map we are implementing
 
-
     [SerializeField]
+    private float _speedModifier;
+    //modify how much the player inputs are being multiplied by
+
+    //Player movement Limits
+    [SerializeField] private float _xMin;
+    [SerializeField] private float _xMax;
+    [SerializeField] private float _yMin;
+    [SerializeField] private float _yMax;
+
+    //Booleans to track if directional inputs are detected
+    private bool _rightPressed;
+    private bool _leftPressed;
+
+
     private float _verticalForce;
-    //scroll speed of the mouse wheel
-    [SerializeField]
+    //strength of vertical direction influence
     private float _horizontalForce;
-    //scroll speed of the mouse wheel
+    //strength of horizontal direction influence
 
-    private float _tempHoriz;
-    private float _tempVert;
+    //animator values
+    private float _horizMovement;
+    private float _vertMovement;
     private float _dampTime;
 
-    private bool _leftPressed;
-    private bool _rightPressed;
 
     // Start is called before the first frame update
     void Start()
     {
         //Get a refrence to our rigidbody
         _rigidBody = GetComponent<Rigidbody>();
-
         //Get a refrence to our rigidbody
         _animator = GetComponent<Animator>();
-
         //Get a reference to our action map
         actions = new PlayerControlls().PlayerMovement;
         //Enable our actions
@@ -49,76 +55,153 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
 
     public void FixedUpdate()
     {
-        _animator.SetFloat("HorizMovement", _tempHoriz, _dampTime, Time.fixedDeltaTime);
-        _animator.SetFloat("VertMovement", _tempVert, _dampTime, Time.fixedDeltaTime);
+        //Store user input as a movement vector
+        Vector3 m_Input = new Vector3(_horizontalForce * _speedModifier, _verticalForce * _speedModifier, 0);
+
+        //Apply the clamped movement vector to the current position, which is
+        //multiplied by deltaTime and speed for a smooth MovePosition
+        _rigidBody.MovePosition(Clamp(transform.position + m_Input * Time.deltaTime) );
+
+        //set animator values to match movement values
+        _animator.SetFloat("HorizMovement", _horizMovement, _dampTime, Time.fixedDeltaTime);
+        _animator.SetFloat("VertMovement", _vertMovement, _dampTime, Time.fixedDeltaTime);
+
+        //slowly reset vertical momentum
+        if (_verticalForce > -2) { _verticalForce -= 0.2f; }
+        if (_verticalForce < -2) { _verticalForce += 0.2f; }
+
+
     }
 
+    //on right input in action map
     public void OnRight(InputAction.CallbackContext context)
     {
-        Debug.Log("Right");
+        //when the key is pressed
         if (context.performed)
         {
+            //set the key as pressed
+            _rightPressed = true;
+            //check if the other direction is pressed
             if (_leftPressed) 
             {
-                _tempHoriz = 0; 
-                _rigidBody.velocity = new Vector3(0, _rigidBody.velocity.y, 0);
+                //if it is, zero out the movement
+                Neutral();
                 return; 
             }
-            _rightPressed = true;
-            _rigidBody.AddForce(new Vector2(_horizontalForce, 0), ForceMode.Force);
-            _tempHoriz = 2;
-            _dampTime = 0.2f;
+            //if not, move desired direction
+            MoveRight();
+
         }
+        //when the key is released
         else if (context.canceled)
         {
+            //set the key as released
             _rightPressed = false;
-            _rigidBody.AddForce(new Vector2(-_horizontalForce, 0), ForceMode.Force);
-            _tempHoriz = 0;
-            _dampTime = 0.05f;
-        }
-
-    }
-
-    public void OnLeft(InputAction.CallbackContext context)
-    {
-        Debug.Log("Left");
-        if (context.performed)
-        {
-            
-            if (_rightPressed)
+            //check if the other direction is pressed
+            if (_leftPressed)
             {
-                _tempHoriz = 0;
-                _rigidBody.velocity = new Vector3(0, _rigidBody.velocity.y, 0);
+                //if it is, move desired direction
+                MoveLeft();
                 return;
             }
-            _leftPressed = true;
-            _rigidBody.AddForce(new Vector2(-_horizontalForce, 0), ForceMode.Force);
-            _tempHoriz = -2;
-            _dampTime = 0.2f;
+            //if not, zero out the movement
+            Neutral();
         }
+
+    }
+
+    //on left input in action map
+    public void OnLeft(InputAction.CallbackContext context)
+    {
+        //when the key is pressed
+        if (context.performed)
+        {
+            //set the key as pressed
+            _leftPressed = true;
+            //check if the other direction is pressed
+            if (_rightPressed)
+            {
+                //if it is, zero out the movement
+                Neutral();
+                return;
+            }
+            //if not, move desired direction
+            MoveLeft();
+        }
+        //when the key is released
         else if (context.canceled)
         {
+            //set the key as released
             _leftPressed = false;
-            _rigidBody.AddForce(new Vector2(_horizontalForce, 0), ForceMode.Force);
-            _tempHoriz = 0;
-            _dampTime = 0.05f;
+            //check if the other direction is pressed
+            if (_rightPressed)
+            {
+                //if it is, move desired direction
+                MoveRight();
+                return;
+            }
+            //if not, zero out the movement
+            Neutral();
         }
     }
 
+    //on up input in action map
     public void OnUp(InputAction.CallbackContext context)
     {
-        Debug.Log("Up");
+        //when the scroll is detected
         if (context.performed)
         {
-
-            _rigidBody.AddForce(new Vector2(0, _verticalForce), ForceMode.Force);
-            _tempVert = 10;
-            _dampTime = 0.05f;
+            //if scroll is positive
+            if(context.ReadValue<float>() > 0)
+            {
+                //add vertical force up, and set animation values for up
+                _verticalForce = 3;
+                _vertMovement = 10;
+                _dampTime = 0.01f;
+            }
+            //if scroll is negitive
+            else if (context.ReadValue<float>() < 0)
+            {
+                //add vertical force down, and set animation values for down
+                _verticalForce = -3;
+                _vertMovement = -10;
+                _dampTime = 0.01f;
+            }            
         }
+        //when the scroll stops
         else if (context.canceled)
         {
-            _tempVert = 0;
+            _vertMovement = 0;
             _dampTime = 0.2f;
         }
+    }
+
+    //move left functionality
+    private void MoveLeft()
+    {
+        _horizontalForce = -2;
+        _horizMovement = -2;
+        _dampTime = 0.2f;
+    }
+    //move right functionality
+    private void MoveRight()
+    {
+        _horizontalForce = 2;
+        _horizMovement = 2;
+        _dampTime = 0.2f;
+    }
+    //neutral functionality
+    private void Neutral()
+    {
+        _horizontalForce = 0;
+        _horizMovement = 0;
+        _dampTime = 0.05f;
+    }
+
+    private Vector3 Clamp(Vector3 value)
+    {
+        //Clamps the player movement between boundries so the player cannot fall out of the tunnel
+        value = new Vector3 (Mathf.Clamp(value.x, _xMin, _xMax), Mathf.Clamp(value.y, _yMin, _yMax), 0);
+        return value;
     }
 }
