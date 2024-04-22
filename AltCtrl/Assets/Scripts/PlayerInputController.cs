@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovementActions
 {
@@ -14,6 +15,13 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
     private float _speedModifier;
     //modify how much the player inputs are being multiplied by
 
+    //Player movement Limits
+    [SerializeField] private float _xMin;
+    [SerializeField] private float _xMax;
+    [SerializeField] private float _yMin;
+    [SerializeField] private float _yMax;
+
+    //Booleans to track if directional inputs are detected
     private bool _rightPressed;
     private bool _leftPressed;
 
@@ -50,9 +58,9 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
         //Store user input as a movement vector
         Vector3 m_Input = new Vector3(_horizontalForce * _speedModifier, _verticalForce * _speedModifier, 0);
 
-        //Apply the movement vector to the current position, which is
+        //Apply the clamped movement vector to the current position, which is
         //multiplied by deltaTime and speed for a smooth MovePosition
-        _rigidBody.MovePosition(transform.position + m_Input * Time.deltaTime);
+        _rigidBody.MovePosition(Clamp(transform.position + m_Input * Time.deltaTime) );
 
         //set animator values to match movement values
         _animator.SetFloat("HorizMovement", _horizMovement, _dampTime, Time.fixedDeltaTime);
@@ -188,5 +196,12 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
         _horizontalForce = 0;
         _horizMovement = 0;
         _dampTime = 0.05f;
+    }
+
+    private Vector3 Clamp(Vector3 value)
+    {
+        //Clamps the player movement between boundries so the player cannot fall out of the tunnel
+        value = new Vector3 (Mathf.Clamp(value.x, _xMin, _xMax), Mathf.Clamp(value.y, _yMin, _yMax), 0);
+        return value;
     }
 }
