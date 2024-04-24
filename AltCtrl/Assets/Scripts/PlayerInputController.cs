@@ -12,7 +12,7 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
     //refrence to the action map we are implementing
 
     [SerializeField]
-    private float _speedModifier;
+    private float _speedModifier = 3f;
     //modify how much the player inputs are being multiplied by
 
     //Player movement Limits
@@ -156,7 +156,7 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
             {
                 //add vertical force up, and set animation values for up
                 _verticalForce = 3;
-                _vertMovement = 10;
+                _vertMovement = 8;
                 _dampTime = 0.01f;
             }
             //if scroll is negitive
@@ -164,7 +164,7 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
             {
                 //add vertical force down, and set animation values for down
                 _verticalForce = -3;
-                _vertMovement = -10;
+                _vertMovement = -8;
                 _dampTime = 0.01f;
             }
         }
