@@ -15,6 +15,7 @@ public class TunnelMovement : MonoBehaviour
     public GameObject[] obstaclePrefabs;
     public float chanceObstacle = 0.5f;
 
+
     private void Start()
     {
         //get reference to GameManager
