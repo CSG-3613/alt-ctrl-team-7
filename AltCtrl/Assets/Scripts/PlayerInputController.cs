@@ -12,7 +12,7 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
     //refrence to the action map we are implementing
 
     [SerializeField]
-    private float _speedModifier;
+    private float _speedModifier = 3f;
     //modify how much the player inputs are being multiplied by
 
     //Player movement Limits
