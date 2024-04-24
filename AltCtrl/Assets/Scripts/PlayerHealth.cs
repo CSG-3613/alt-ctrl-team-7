@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] public GameManager gm;
+    public GameManager gm;
 
     [SerializeField] private int health;
     [SerializeField] private int maxHealth;
@@ -15,6 +15,8 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         obstacleLayer = LayerMask.NameToLayer("Obstacle");
+
+        gm = GameManager.instance;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -23,6 +25,13 @@ public class PlayerHealth : MonoBehaviour
 
         if(otherLayer == obstacleLayer)
         {
+            print("Obstacle collision detected");
+
+            health -= 1;
+            if (health <= 0)
+            {
+                gm.gameOver();
+            }
             //TODO: die.
         }
     }
