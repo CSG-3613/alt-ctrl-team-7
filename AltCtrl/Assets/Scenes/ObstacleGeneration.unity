@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.14538348, g: 0.09414124, b: 0.21716052, a: 1}
+  m_IndirectSpecularColor: {r: 0.14545462, g: 0.0941231, b: 0.21724021, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -159,6 +159,7 @@ Transform:
   m_Children:
   - {fileID: 1243143342}
   - {fileID: 1664342700}
+  - {fileID: 1405491309}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &46706776
@@ -318,6 +319,10 @@ PrefabInstance:
     - target: {fileID: 8067876498975570959, guid: b4eda6b8e4c8eb346b603e65545f4f3f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8903947021816862038, guid: b4eda6b8e4c8eb346b603e65545f4f3f, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1957,6 +1962,64 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fec4693d7048c294d81226749e35d92a, type: 3}
+--- !u!1 &1405491308
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1405491309}
+  - component: {fileID: 1405491310}
+  m_Layer: 0
+  m_Name: TunnelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1405491309
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405491308}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 43345342}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1405491310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405491308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c054471bc7121ab479ce54588b34965f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocity: 0
+  LastTunnel: {fileID: 868069985}
+  tunnelPrefabs:
+  - {fileID: 7870608031611152750, guid: fec4693d7048c294d81226749e35d92a, type: 3}
+  - {fileID: 6496794322286081027, guid: 62a9d5a7ad9c7084c8f462f023addae9, type: 3}
+  - {fileID: 2875521013338221566, guid: fe1d4858eae995b479f33a7e1b63b84c, type: 3}
+  - {fileID: 5066777818436860901, guid: 30d720a8d7ac345449fa55cd5fb5a834, type: 3}
+  - {fileID: 4110938334092121144, guid: 24359b02ffe164345bde14e7e9f8beef, type: 3}
+  obstaclePrefabs:
+  - {fileID: 7870608031611152750, guid: bf612bef217ee0f4796b48675737b9f6, type: 3}
+  - {fileID: 7888708518433499602, guid: 3f0475a292d96f24faa688b3e52a67d0, type: 3}
+  - {fileID: 3051889179273433984, guid: 4d287a7d30ace4c449501eec668de841, type: 3}
+  - {fileID: 6125197655510223979, guid: fd495f755911bf64abee0a718939eb22, type: 3}
+  chanceObstacle: 0.5
 --- !u!1001 &1419567409
 PrefabInstance:
   m_ObjectHideFlags: 0
