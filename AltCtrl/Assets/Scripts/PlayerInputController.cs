@@ -16,10 +16,10 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
     //modify how much the player inputs are being multiplied by
 
     //Player movement Limits
-    [SerializeField] private float _xMin;
-    [SerializeField] private float _xMax;
-    [SerializeField] private float _yMin;
-    [SerializeField] private float _yMax;
+    private float _xMin = -8.5f;
+    private float _xMax = 3.5f;
+    private float _yMin = -5.0f;
+    private float _yMax = 7.5f;
 
     //Booleans to track if directional inputs are detected
     private bool _rightPressed;
@@ -156,7 +156,7 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
             {
                 //add vertical force up, and set animation values for up
                 _verticalForce = 3;
-                _vertMovement = 10;
+                _vertMovement = 8;
                 _dampTime = 0.01f;
             }
             //if scroll is negitive
@@ -164,7 +164,7 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
             {
                 //add vertical force down, and set animation values for down
                 _verticalForce = -3;
-                _vertMovement = -10;
+                _vertMovement = -8;
                 _dampTime = 0.01f;
             }
         }
