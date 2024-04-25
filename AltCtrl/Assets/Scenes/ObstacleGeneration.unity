@@ -1784,7 +1784,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7870608031611152750, guid: fec4693d7048c294d81226749e35d92a, type: 3}
       propertyPath: m_Name
-      value: TunnelUnit (2)
+      value: TunnelUnit_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2008,18 +2008,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: 0
   LastTunnel: {fileID: 868069985}
-  tunnelPrefabs:
+  _currentPlanetIndex: 0
+  _Planet1TunnelPrefabs:
   - {fileID: 7870608031611152750, guid: fec4693d7048c294d81226749e35d92a, type: 3}
-  - {fileID: 6496794322286081027, guid: 62a9d5a7ad9c7084c8f462f023addae9, type: 3}
-  - {fileID: 2875521013338221566, guid: fe1d4858eae995b479f33a7e1b63b84c, type: 3}
-  - {fileID: 5066777818436860901, guid: 30d720a8d7ac345449fa55cd5fb5a834, type: 3}
-  - {fileID: 4110938334092121144, guid: 24359b02ffe164345bde14e7e9f8beef, type: 3}
-  obstaclePrefabs:
+  - {fileID: 7870608031611152750, guid: fec4693d7048c294d81226749e35d92a, type: 3}
+  - {fileID: 7870608031611152750, guid: fec4693d7048c294d81226749e35d92a, type: 3}
+  - {fileID: 4664687985333534055, guid: cebbb38b2fce0714db17f88be16fc8ab, type: 3}
+  - {fileID: 4664687985333534055, guid: cebbb38b2fce0714db17f88be16fc8ab, type: 3}
+  _Planet1ObstaclePrefabs:
   - {fileID: 7870608031611152750, guid: bf612bef217ee0f4796b48675737b9f6, type: 3}
   - {fileID: 7888708518433499602, guid: 3f0475a292d96f24faa688b3e52a67d0, type: 3}
   - {fileID: 3051889179273433984, guid: 4d287a7d30ace4c449501eec668de841, type: 3}
   - {fileID: 6125197655510223979, guid: fd495f755911bf64abee0a718939eb22, type: 3}
-  chanceObstacle: 0.5
+  _Planet2TunnelPrefabs:
+  - {fileID: 7870608031611152750, guid: fd6db70bd11e7cd4bb49ad4e50d11e4e, type: 3}
+  - {fileID: 7870608031611152750, guid: fd6db70bd11e7cd4bb49ad4e50d11e4e, type: 3}
+  - {fileID: 7870608031611152750, guid: fd6db70bd11e7cd4bb49ad4e50d11e4e, type: 3}
+  - {fileID: 4664687985333534055, guid: 19fcb9bd585a77444ae85ce84e90737e, type: 3}
+  - {fileID: 4664687985333534055, guid: 19fcb9bd585a77444ae85ce84e90737e, type: 3}
+  _Planet2ObstaclePrefabs:
+  - {fileID: 7870608031611152750, guid: 0101f5ecdf3c41a4cbc1fa376a7e61a4, type: 3}
+  - {fileID: 7888708518433499602, guid: 94e89f41d54c4a44ab03b4e303958f54, type: 3}
+  - {fileID: 3051889179273433984, guid: 51257659341a6e247be716ffaab4d39c, type: 3}
+  - {fileID: 6125197655510223979, guid: 2a3ccb49004e1d04eb4ccee1aa72df66, type: 3}
+  chanceObstacle: 1
 --- !u!1001 &1419567409
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2811,7 +2823,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7870608031611152750, guid: fec4693d7048c294d81226749e35d92a, type: 3}
       propertyPath: m_Name
-      value: TunnelUnit (1)
+      value: TunnelUnit_1 (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
