@@ -2008,12 +2008,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: 0
   LastTunnel: {fileID: 868069985}
-  _currentPlanetIndex: 0
+  _currentPlanetIndex: 1
   _Planet1TunnelPrefabs:
   - {fileID: 7870608031611152750, guid: fec4693d7048c294d81226749e35d92a, type: 3}
-  - {fileID: 7870608031611152750, guid: fec4693d7048c294d81226749e35d92a, type: 3}
-  - {fileID: 7870608031611152750, guid: fec4693d7048c294d81226749e35d92a, type: 3}
-  - {fileID: 4664687985333534055, guid: cebbb38b2fce0714db17f88be16fc8ab, type: 3}
   - {fileID: 4664687985333534055, guid: cebbb38b2fce0714db17f88be16fc8ab, type: 3}
   _Planet1ObstaclePrefabs:
   - {fileID: 7870608031611152750, guid: bf612bef217ee0f4796b48675737b9f6, type: 3}
@@ -2022,15 +2019,21 @@ MonoBehaviour:
   - {fileID: 6125197655510223979, guid: fd495f755911bf64abee0a718939eb22, type: 3}
   _Planet2TunnelPrefabs:
   - {fileID: 7870608031611152750, guid: fd6db70bd11e7cd4bb49ad4e50d11e4e, type: 3}
-  - {fileID: 7870608031611152750, guid: fd6db70bd11e7cd4bb49ad4e50d11e4e, type: 3}
-  - {fileID: 7870608031611152750, guid: fd6db70bd11e7cd4bb49ad4e50d11e4e, type: 3}
-  - {fileID: 4664687985333534055, guid: 19fcb9bd585a77444ae85ce84e90737e, type: 3}
   - {fileID: 4664687985333534055, guid: 19fcb9bd585a77444ae85ce84e90737e, type: 3}
   _Planet2ObstaclePrefabs:
   - {fileID: 7870608031611152750, guid: 0101f5ecdf3c41a4cbc1fa376a7e61a4, type: 3}
   - {fileID: 7888708518433499602, guid: 94e89f41d54c4a44ab03b4e303958f54, type: 3}
   - {fileID: 3051889179273433984, guid: 51257659341a6e247be716ffaab4d39c, type: 3}
   - {fileID: 6125197655510223979, guid: 2a3ccb49004e1d04eb4ccee1aa72df66, type: 3}
+  _Planet3TunnelPrefabs:
+  - {fileID: 7870608031611152750, guid: fd6db70bd11e7cd4bb49ad4e50d11e4e, type: 3}
+  - {fileID: 4664687985333534055, guid: 19fcb9bd585a77444ae85ce84e90737e, type: 3}
+  - {fileID: 5394835934855019751, guid: 470907b77ccc49e4aa257704d4f6960f, type: 3}
+  _Planet3ObstaclePrefabs:
+  - {fileID: 7918867973094206277, guid: 9a085fd9eef43394082db75ab189d921, type: 3}
+  - {fileID: 1651538255352537875, guid: cd45d85c32bb56a448419a1aa87232cb, type: 3}
+  - {fileID: 7617323793830953412, guid: ef8534739fb11994dae79884b6fce52e, type: 3}
+  - {fileID: 1465432656295152175, guid: 5fa9e475761b38c489c5cf424d1a4ed4, type: 3}
   chanceObstacle: 1
 --- !u!1001 &1419567409
 PrefabInstance:

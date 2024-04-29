@@ -459,9 +459,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7918867973094206277, guid: 9a085fd9eef43394082db75ab189d921, type: 3}
       propertyPath: m_Name
-      value: ObstacleUnit_03
+      value: MissileCluster
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5847249136851626607, guid: 9a085fd9eef43394082db75ab189d921, type: 3}
     m_RemovedGameObjects:
     - {fileID: 5060317478747379539, guid: 9a085fd9eef43394082db75ab189d921, type: 3}
     m_AddedGameObjects:

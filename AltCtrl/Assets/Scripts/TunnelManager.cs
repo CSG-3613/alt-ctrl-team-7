@@ -21,15 +21,29 @@ public class TunnelManager : MonoBehaviour
     [SerializeField] private GameObject[] _Planet1ObstaclePrefabs;
     [SerializeField] private GameObject[] _Planet2TunnelPrefabs;
     [SerializeField] private GameObject[] _Planet2ObstaclePrefabs;
+    [SerializeField] private GameObject[] _Planet3TunnelPrefabs;
+    [SerializeField] private GameObject[] _Planet3ObstaclePrefabs;
     //chance to spawn an obsticle
-    [SerializeField] private float chanceObstacle = 0.5f;
+    [SerializeField] private float chanceObstacle = 0.3f;
 
     //2D array initialization needs a static int value, This cannot be seen in the inspector
-    private static int _numberOfPlanets = 2;
+    private static int _numberOfPlanets = 3;
 
     //2D Arrays Cannot be seen in inspector! Must be assigned in code!
     private GameObject[][] tunnelPrefabs = new GameObject[_numberOfPlanets][];
     private GameObject[][] ObstaclePrefabs = new GameObject[_numberOfPlanets][];
+
+    private void Initialize2DArrays()
+    {
+        //Assigning the values of the 2d Array
+        //Must have one for each number of planets!!
+        tunnelPrefabs[0] = _Planet1TunnelPrefabs;
+        ObstaclePrefabs[0] = _Planet1ObstaclePrefabs;
+        tunnelPrefabs[1] = _Planet2TunnelPrefabs;
+        ObstaclePrefabs[1] = _Planet2ObstaclePrefabs;
+        tunnelPrefabs[2] = _Planet3TunnelPrefabs;
+        ObstaclePrefabs[2] = _Planet3ObstaclePrefabs;
+    }
 
     private void Awake()
     {
@@ -66,8 +80,8 @@ public class TunnelManager : MonoBehaviour
         {
             Instantiate(
                 ObstaclePrefabs[_currentPlanetIndex][Random.Range(0, ObstaclePrefabs[_currentPlanetIndex].Length)], //Gameobject to instantiate
-                LastTunnel.transform.position + new Vector3(-2.5f, -4f, 0) //center reference point
-                + Random.Range(-5.0f, 5.0f) * Vector3.right + Random.Range(-5.0f, 5.0f) * Vector3.up, //repositioning logic
+                LastTunnel.transform.position //center reference point
+                + Random.Range(-1,1) * 5 * Vector3.right + Random.Range(-1, 1) * 5 * Vector3.up, //repositioning logic
                 LastTunnel.transform.rotation);
         }
         LastTunnel = nextTunnel;
@@ -75,13 +89,4 @@ public class TunnelManager : MonoBehaviour
         Destroy(_TunnelToDelete);
     }
 
-    private void Initialize2DArrays()
-    {
-        //Assigning the values of the 2d Array
-        //Must have one for each number of planets!!
-        tunnelPrefabs[0] = _Planet1TunnelPrefabs;
-        ObstaclePrefabs[0] = _Planet1ObstaclePrefabs;
-        tunnelPrefabs[1] = _Planet2TunnelPrefabs;
-        ObstaclePrefabs[1] = _Planet2ObstaclePrefabs;
-    }
 }

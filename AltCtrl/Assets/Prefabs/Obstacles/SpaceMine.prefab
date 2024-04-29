@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7617323793830953412, guid: ef8534739fb11994dae79884b6fce52e, type: 3}
       propertyPath: m_Name
-      value: ObstacleUnit_02
+      value: SpaceMine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

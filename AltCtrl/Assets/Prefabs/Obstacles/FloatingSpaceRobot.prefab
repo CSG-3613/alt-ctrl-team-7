@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7870608031611152750, guid: bf612bef217ee0f4796b48675737b9f6, type: 3}
       propertyPath: m_Name
-      value: ObstacleUnit_01
+      value: FloatingSpaceRobot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -59,13 +59,39 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 800332544982350373, guid: bf612bef217ee0f4796b48675737b9f6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5720259718918589910}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7870608031611152750, guid: bf612bef217ee0f4796b48675737b9f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8790001115855332367}
   m_SourcePrefab: {fileID: 100100000, guid: bf612bef217ee0f4796b48675737b9f6, type: 3}
 --- !u!4 &1123496209893511823 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 800332544982350373, guid: bf612bef217ee0f4796b48675737b9f6, type: 3}
   m_PrefabInstance: {fileID: 327689564169185450}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7617323793830953412 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7870608031611152750, guid: bf612bef217ee0f4796b48675737b9f6, type: 3}
+  m_PrefabInstance: {fileID: 327689564169185450}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8790001115855332367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7617323793830953412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf5a8d70c577ec54abc00d1ce638fa31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xRotationMin: -180
+  xRotationMax: 180
+  yRotationMin: -180
+  yRotationMax: 180
+  zRotationMin: -180
+  zRotationMax: 180
 --- !u!1001 &5722962953451505950
 PrefabInstance:
   m_ObjectHideFlags: 0

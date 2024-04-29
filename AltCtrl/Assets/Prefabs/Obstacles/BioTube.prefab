@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1651538255352537875, guid: cd45d85c32bb56a448419a1aa87232cb, type: 3}
       propertyPath: m_Name
-      value: ObstacleUnit_04
+      value: BioTube
       objectReference: {fileID: 0}
     - target: {fileID: 8127360375313018968, guid: cd45d85c32bb56a448419a1aa87232cb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52,7 +52,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3038684139499741753, guid: cd45d85c32bb56a448419a1aa87232cb, type: 3}
+    - {fileID: 4992601683781549038, guid: cd45d85c32bb56a448419a1aa87232cb, type: 3}
     m_RemovedGameObjects:
     - {fileID: 7892942653524323556, guid: cd45d85c32bb56a448419a1aa87232cb, type: 3}
     m_AddedGameObjects:
