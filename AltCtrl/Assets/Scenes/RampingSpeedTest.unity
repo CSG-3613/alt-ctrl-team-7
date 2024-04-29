@@ -1417,9 +1417,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f7a091bc8759694f9b761901584de16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSpeed: 30
-  accelSpeed: 0.001
-  currSpeed: 30
+  startSpeed: 15
+  accelSpeed: 0.0001
+  currSpeed: 15
 --- !u!4 &1010539777 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 800332544982350373, guid: fec4693d7048c294d81226749e35d92a, type: 3}
@@ -2645,6 +2645,10 @@ PrefabInstance:
     - target: {fileID: 1591540176690947909, guid: b4eda6b8e4c8eb346b603e65545f4f3f, type: 3}
       propertyPath: m_Name
       value: PlayerShip
+      objectReference: {fileID: 0}
+    - target: {fileID: 7382308759730757975, guid: b4eda6b8e4c8eb346b603e65545f4f3f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8067876498975570959, guid: b4eda6b8e4c8eb346b603e65545f4f3f, type: 3}
       propertyPath: m_LocalPosition.x
