@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 800332544982350373}
   - component: {fileID: -6659487289614340743}
+  - component: {fileID: -60584088636565488}
   m_Layer: 6
   m_Name: ObstacleUnit_1
   m_TagString: Environment
@@ -48,10 +49,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: 2
   endTunnelZ: -55
-  LastTunnel: {fileID: 0}
-  tunnelPrefabs: []
-  obstaclePrefabs: []
-  chanceObstacle: 0.5
+  Zpos: 0
+--- !u!135 &-60584088636565488
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7870608031611152750}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2.12
+  m_Center: {x: -2.5, y: 1.5, z: 0}
 --- !u!1 &8649666610016258895
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,6 +234,10 @@ PrefabInstance:
     - target: {fileID: 64900627205732344, guid: 6b15349ae7f0c4c41ad09993616a147e, type: 3}
       propertyPath: m_Convex
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 64900627205732344, guid: 6b15349ae7f0c4c41ad09993616a147e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 64900627205732344, guid: 6b15349ae7f0c4c41ad09993616a147e, type: 3}
       propertyPath: m_IsTrigger

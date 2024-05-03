@@ -11,7 +11,7 @@ public class PlayerHealth : MonoBehaviour
     private bool invincible;
 
     private int obstacleLayer;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +19,8 @@ public class PlayerHealth : MonoBehaviour
 
         gm = GameManager.instance;
         invincible = false;
+
+        health = maxHealth;
     }
 
     //private void FixedUpdate()
@@ -30,7 +32,9 @@ public class PlayerHealth : MonoBehaviour
     {
         var otherLayer = other.gameObject.layer;
 
-        if(otherLayer == obstacleLayer && !invincible)
+        Debug.Log(other.gameObject.layer);
+
+        if (otherLayer == obstacleLayer && !invincible)
         {
             print("Obstacle collision detected");
             health -= 1;
@@ -42,6 +46,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    /*
     IEnumerator DamageCooldown()
     {
         new WaitForSeconds(2);
@@ -49,4 +54,5 @@ public class PlayerHealth : MonoBehaviour
 
         yield return null;
     }
+    */
 }

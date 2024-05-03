@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
     public void gameOver()
     {
         print("Player dead");
+        currSpeed = 0;
         resetGame();
     }
 }
