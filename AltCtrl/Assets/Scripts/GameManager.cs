@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float startSpeed;
     [SerializeField] private float accelSpeed;
     [SerializeField] private float currSpeed;
+
+    [SerializeField] private TextMeshProUGUI gameoverText;
 
     private void Awake()
     {
@@ -55,6 +58,8 @@ public class GameManager : MonoBehaviour
     {
         print("Player dead");
         currSpeed = 0;
-        resetGame();
+        accelSpeed = 0;
+        gameoverText.gameObject.SetActive(true);
+        //resetGame();
     }
 }

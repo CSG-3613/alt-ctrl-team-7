@@ -4,29 +4,52 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public GameManager gm;
+    private GameManager gm;
 
     [SerializeField] private int health;
     [SerializeField] private int maxHealth;
-    private bool invincible;
+    [SerializeField] private GameObject explosionFX;
 
+    private ParticleSystem explosionParticle;
+    private bool invincible;
     private int obstacleLayer;
+    private int countdown = 120;
 
     // Start is called before the first frame update
     void Start()
     {
+        //retrieve explosionFX main module and set callback for use when player dies
+        explosionParticle = explosionFX.GetComponent<ParticleSystem>();
+        var main = explosionParticle.main;
+        main.stopAction = ParticleSystemStopAction.Callback;
+
+        //set layer to check collisions on
         obstacleLayer = LayerMask.NameToLayer("Obstacle");
 
+        //fetch gamemanager and initialize health
         gm = GameManager.instance;
         invincible = false;
 
         health = maxHealth;
     }
 
-    //private void FixedUpdate()
-    //{
-    //    StartCoroutine(DamageCooldown());
-    //}
+    private void FixedUpdate()
+    {
+        if (countdown > 0)
+        {
+            countdown--;
+            if (countdown <= 0)
+            {
+                invincible = false;
+                print("damage cooldown ended");
+            }
+            else
+            {
+                invincible = true;
+            }
+        }
+
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -38,12 +61,20 @@ public class PlayerHealth : MonoBehaviour
         {
             print("Obstacle collision detected");
             health -= 1;
+            countdown = 180;
             if (health <= 0)
             {
+                explosionParticle.Play();
+                GetComponent<MeshRenderer>().enabled = false;
                 gm.gameOver();
             }
             //TODO: die.
         }
+    }
+
+    private void OnParticleSystemStopped()
+    {
+        gameObject.SetActive(false);
     }
 
     /*
