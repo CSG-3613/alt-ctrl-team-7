@@ -227,9 +227,8 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
         //top prox sensor temp for comparison
         int temp2 = int.Parse(datas[3]);
         //bottom prox sensor temp for comparison
-        
 
-        Debug.Log(leftVal +","+ rightVal + "," + temp1 + "," + temp2);
+        //Debug.Log(leftVal +","+ rightVal + "," + temp1 + "," + temp2);
         
 
         ArduinoLeft(leftVal);
@@ -240,6 +239,7 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
             prox1 = temp1;
             vertInputHistory[vertInputIndex % 2] = 1;
             vertInputIndex = (vertInputIndex % 2) + 1;
+            ArduinoUp();
         }
         //if the input is different than the last value
         if (prox2 != temp2)
@@ -247,7 +247,9 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
             prox2 = temp2;
             vertInputHistory[vertInputIndex % 2] = 2;
             vertInputIndex = (vertInputIndex % 2) + 1;
+            ArduinoUp();
         }
+        
 
     }
 
@@ -324,8 +326,28 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
     }
 
     //on up input in action map
-    public void ArduinoUp(int inputValue)
+    public void ArduinoUp()
     {
-
+        //if scroll is positive
+        if (vertInputHistory[(vertInputIndex - 1) % 2] > vertInputHistory[vertInputIndex % 2])
+        {
+            //add vertical force up, and set animation values for up
+            _verticalForce = 4;
+            _vertMovement = 1;
+            _dampTime = 0.5f;
+        }
+        //if scroll is negitive
+        else if (vertInputHistory[(vertInputIndex - 1) % 2]  < vertInputHistory[vertInputIndex % 2])
+        {
+            //add vertical force down, and set animation values for down
+            _verticalForce = -4;
+            _vertMovement = -1;
+            _dampTime = 0.5f;
+        }
+        //if scroll is equal
+        else
+        {
+            Debug.Log("InputEqual");
+        }
     }
 }
