@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
         currSpeed = 0;
         accelSpeed = 0;
         gameoverText.gameObject.SetActive(true);
+        Time.timeScale = 0;
         //resetGame();
     }
 }
