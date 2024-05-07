@@ -542,6 +542,17 @@ MonoBehaviour:
   health: 0
   maxHealth: 3
   explosionFX: {fileID: 6708962842399679028}
+  HealthUIHearts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  crashEvent:
+    Guid:
+      Data1: -328132169
+      Data2: 1277821680
+      Data3: -58748772
+      Data4: -2031384625
+    Path: event:/Crash
 --- !u!114 &7864434050471094344
 MonoBehaviour:
   m_ObjectHideFlags: 0

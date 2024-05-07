@@ -9,6 +9,8 @@ public class ScoreManager : MonoBehaviour
 
     [SerializeField] public GameManager gm;
     [SerializeField] public TextMeshProUGUI scoreText;
+    
+    [SerializeField] public TextMeshProUGUI scoreTextEnd;
 
     [SerializeField] private float scoreVal;
     private float speed;
@@ -30,5 +32,6 @@ public class ScoreManager : MonoBehaviour
 
         //display scoreAsInt in UI
         scoreText.text = scoreAsInt.ToString();
+        scoreTextEnd.text = "Score: " + scoreAsInt.ToString();
     }
 }

@@ -9,6 +9,8 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private int health;
     [SerializeField] private int maxHealth;
     [SerializeField] private GameObject explosionFX;
+    [SerializeField] private GameObject[] HealthUIHearts;
+    [SerializeField] private FMODUnity.EventReference crashEvent;
 
     private ParticleSystem explosionParticle;
     private bool invincible;
@@ -31,6 +33,7 @@ public class PlayerHealth : MonoBehaviour
         invincible = false;
 
         health = maxHealth;
+        Time.timeScale = 1;
     }
 
     private void FixedUpdate()
@@ -61,6 +64,8 @@ public class PlayerHealth : MonoBehaviour
         {
             print("Obstacle collision detected");
             health -= 1;
+            HealthUIHearts[health].SetActive(false);
+            FMODUnity.RuntimeManager.PlayOneShot(crashEvent, transform.position);
             countdown = 180;
             if (health <= 0)
             {
