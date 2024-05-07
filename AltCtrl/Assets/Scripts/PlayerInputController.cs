@@ -228,9 +228,6 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
         int temp2 = int.Parse(datas[3]);
         //bottom prox sensor temp for comparison
 
-        //Debug.Log(leftVal +","+ rightVal + "," + temp1 + "," + temp2);
-        
-
         ArduinoLeft(leftVal);
         ArduinoRight(rightVal);
 
