@@ -347,7 +347,7 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
         //if scroll is equal
         else
         {
-            Debug.Log("InputEqual");
+            return;
         }
     }
 }
