@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
@@ -11,9 +12,17 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
     private Animator _animator;
     //refrence to the action map we are implementing
 
-    [SerializeField]
-    private float _speedModifier = 3f;
+
+    [SerializeField] private float _speedModifier = 3f;
     //modify how much the player inputs are being multiplied by
+    [SerializeField] private int[] vertInputHistory = { 0, 0 };
+    //input history for the prox sensors
+    [SerializeField] int vertInputIndex = 0;
+    //index for input tracking
+    private int prox1 = 2;
+    //top sensor data value, set for initialization
+    private int prox2 = 2;
+    //bottom sensor data value, set for initialization
 
     //Player movement Limits
     private float _xMin = -8.5f;
@@ -203,5 +212,120 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
         //Clamps the player movement between boundries so the player cannot fall out of the tunnel
         value = new Vector3(Mathf.Clamp(value.x, _xMin, _xMax), Mathf.Clamp(value.y, _yMin, _yMax), 0);
         return value;
+    }
+
+
+    void OnMessageArrived(string msg)
+    {
+        string[] datas = msg.Split(",");
+        //splits data between ,
+        
+        int leftVal = int.Parse(datas[0]);
+        int rightVal = int.Parse(datas[1]);
+
+        int temp1 = int.Parse(datas[2]);
+        //top prox sensor temp for comparison
+        int temp2 = int.Parse(datas[3]);
+        //bottom prox sensor temp for comparison
+        
+
+        Debug.Log(leftVal +","+ rightVal + "," + temp1 + "," + temp2);
+        
+
+        ArduinoLeft(leftVal);
+        ArduinoRight(rightVal);
+
+        if (prox1 != temp1)
+        {
+            prox1 = temp1;
+            vertInputHistory[vertInputIndex % 2] = 1;
+            vertInputIndex = (vertInputIndex % 2) + 1;
+        }
+        //if the input is different than the last value
+        if (prox2 != temp2)
+        {
+            prox2 = temp2;
+            vertInputHistory[vertInputIndex % 2] = 2;
+            vertInputIndex = (vertInputIndex % 2) + 1;
+        }
+
+    }
+
+    //on right input in action map
+    public void ArduinoRight(int inputValue)
+    {
+        //when the key is pressed
+        if (inputValue > 500)
+        {
+            //set the key as pressed
+            _rightPressed = true;
+            //check if the other direction is pressed
+            if (_leftPressed)
+            {
+                //if it is, zero out the movement
+                Neutral();
+                return;
+            }
+            //if not, move desired direction
+            MoveRight();
+
+        }
+        //when the key is released
+        else if (inputValue < 500)
+        {
+            //set the key as released
+            _rightPressed = false;
+            //check if the other direction is pressed
+            if (_leftPressed)
+            {
+                //if it is, move desired direction
+                MoveLeft();
+                return;
+            }
+            //if not, zero out the movement
+            Neutral();
+        }
+
+    }
+
+    //on left input in action map
+    public void ArduinoLeft(int inputValue)
+    {
+        //when the key is pressed
+        if (inputValue > 500)
+        {
+            //set the key as pressed
+            _leftPressed = true;
+            //check if the other direction is pressed
+            if (_rightPressed)
+            {
+                //if it is, zero out the movement
+                Neutral();
+                return;
+            }
+            //if not, move desired direction
+            MoveLeft();
+        }
+        //when the key is released
+        else if (inputValue < 500)
+        {
+            //set the key as released
+            _leftPressed = false;
+            //check if the other direction is pressed
+            if (_rightPressed)
+            {
+                //if it is, move desired direction
+                MoveRight();
+                return;
+            }
+            //if not, zero out the movement
+            Neutral();
+        }
+    }
+
+    //on up input in action map
+    public void ArduinoUp(int inputValue)
+    {
+
     }
 }
