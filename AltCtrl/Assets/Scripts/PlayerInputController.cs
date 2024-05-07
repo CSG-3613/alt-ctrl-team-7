@@ -56,7 +56,7 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
     public void FixedUpdate()
     {
         //Store user input as a movement vector
-        Vector3 m_Input = new Vector3(_horizontalForce * _speedModifier, _verticalForce * _speedModifier, 0);
+        Vector3 m_Input = new Vector3(_horizontalForce * _speedModifier, _verticalForce * _speedModifier, transform.position.z);
 
         //Apply the clamped movement vector to the current position, which is
         //multiplied by deltaTime and speed for a smooth MovePosition
@@ -201,7 +201,7 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
     private Vector3 Clamp(Vector3 value)
     {
         //Clamps the player movement between boundries so the player cannot fall out of the tunnel
-        value = new Vector3(Mathf.Clamp(value.x, _xMin, _xMax), Mathf.Clamp(value.y, _yMin, _yMax), 0);
+        value = new Vector3(Mathf.Clamp(value.x, _xMin, _xMax), Mathf.Clamp(value.y, _yMin, _yMax), transform.position.z);
         return value;
     }
 }

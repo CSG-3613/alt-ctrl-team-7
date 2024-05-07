@@ -10,6 +10,8 @@ public class TunnelMovement : MonoBehaviour
     public float velocity;
     public float endTunnelZ = -40;
 
+    public float Zpos;
+
     private void Start()
     {
         //get reference to GameManager
@@ -25,6 +27,7 @@ public class TunnelMovement : MonoBehaviour
         velocity = gm.getCurrSpeed();
         //move the object towards the player
         gameObject.transform.position = gameObject.transform.position + (Vector3.back)*velocity*Time.deltaTime;
+        Zpos = gameObject.transform.position.z;
 
         if (this.gameObject.transform.position.z < endTunnelZ)
         {
