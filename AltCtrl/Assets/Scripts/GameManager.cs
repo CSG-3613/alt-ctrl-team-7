@@ -12,8 +12,16 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance { get; private set; }
 
+    [SerializeField] private ScoreManager sm;
+    [SerializeField] private TunnelManager tm;
+    [SerializeField] private GameObject player;
+    private PlayerHealth playerHealth;
+    [SerializeField] private GameObject TeleportParticles;
+
     [SerializeField] private FMODUnity.EventReference LevelMusic;
     private EventInstance _musicInstance;
+    [SerializeField] private FMODUnity.EventReference TeleportPowerUpSFX;
+    [SerializeField] private FMODUnity.EventReference TeleportPowerDownSFX;
 
     //public [] currState
     [SerializeField] private float startSpeed;
@@ -21,6 +29,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float currSpeed;
 
     [SerializeField] private TextMeshProUGUI gameoverText;
+
+    private bool isInSpace;
     
 
     private void Awake()
@@ -47,6 +57,10 @@ public class GameManager : MonoBehaviour
         _musicInstance.release();
         
         currSpeed = startSpeed;
+
+        playerHealth = player.GetComponent<PlayerHealth>();
+
+        StartCoroutine(WorldChanger());
     }
 
     void FixedUpdate()
@@ -80,5 +94,37 @@ public class GameManager : MonoBehaviour
 
     public void OnDestroy(){
         _musicInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+    }
+
+    private IEnumerator WorldChanger()
+    {
+        yield return new WaitForSeconds(30f);
+        Debug.Log("WorldChanger Started");
+        playerHealth.SetInvincible();
+        TeleportParticles.SetActive(true);
+
+        FMODUnity.RuntimeManager.PlayOneShot(TeleportPowerUpSFX, transform.position);
+
+        playerHealth.SetInTransition(true);
+        yield return sm.CameraFOVIncrease();
+
+        yield return tm.ChangePlanets();
+
+        FMODUnity.RuntimeManager.PlayOneShot(TeleportPowerDownSFX, transform.position);
+
+        yield return sm.CameraFOVDecrease();
+        TeleportParticles.SetActive(false);
+        playerHealth.SetVulnerable();
+        playerHealth.SetInTransition(false);
+        StartCoroutine(WorldChanger());
+    }
+
+    public void SetIsInSpace(bool val)
+    {
+        isInSpace = val;
+    }
+    public bool GetIsInSpace()
+    {
+        return isInSpace;
     }
 }

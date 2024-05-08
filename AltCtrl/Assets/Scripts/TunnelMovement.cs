@@ -38,7 +38,7 @@ public class TunnelMovement : MonoBehaviour
                 tm.SpawnTunnel(this.gameObject);
             }
             //if its an obsticle, destroy it
-            else if(gameObject.layer == 6) { Destroy(gameObject);}
+            else if(gameObject.layer == 6 || gameObject.layer == 7) { Destroy(gameObject);}
 
         }
     }

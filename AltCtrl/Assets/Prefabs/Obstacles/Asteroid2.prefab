@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -60584088636565488, guid: bf612bef217ee0f4796b48675737b9f6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 800332544982350373, guid: bf612bef217ee0f4796b48675737b9f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -50,9 +54,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7870608031611152750, guid: bf612bef217ee0f4796b48675737b9f6, type: 3}
       propertyPath: m_Name
-      value: ObstacleUnit_2
+      value: Asteroid2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -60584088636565488, guid: bf612bef217ee0f4796b48675737b9f6, type: 3}
     m_RemovedGameObjects:
     - {fileID: 6807641757593713333, guid: bf612bef217ee0f4796b48675737b9f6, type: 3}
     m_AddedGameObjects:
@@ -77,6 +82,10 @@ PrefabInstance:
     - target: {fileID: 1358865280516670, guid: 5e616c2418668fc40a838b6fbec12b54, type: 3}
       propertyPath: m_Name
       value: SM_Env_Asteroid_Holes_05
+      objectReference: {fileID: 0}
+    - target: {fileID: 1358865280516670, guid: 5e616c2418668fc40a838b6fbec12b54, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4253691159984170, guid: 5e616c2418668fc40a838b6fbec12b54, type: 3}
       propertyPath: m_LocalScale.x
@@ -154,13 +163,17 @@ PrefabInstance:
       propertyPath: m_IncludeLayers.m_Bits
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64241473409998500, guid: 5e616c2418668fc40a838b6fbec12b54, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1358865280516670, guid: 5e616c2418668fc40a838b6fbec12b54, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7817266882599961915}
+    - targetCorrespondingSourceObject: {fileID: 1358865280516670, guid: 5e616c2418668fc40a838b6fbec12b54, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4280971938352971092}
   m_SourcePrefab: {fileID: 100100000, guid: 5e616c2418668fc40a838b6fbec12b54, type: 3}
 --- !u!1 &4532518618457890999 stripped
 GameObject:
@@ -185,6 +198,27 @@ MonoBehaviour:
   yRotationMax: 180
   zRotationMin: -180
   zRotationMax: 180
+--- !u!135 &4280971938352971092
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4532518618457890999}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 8
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 4.2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &4534406841853156003 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4253691159984170, guid: 5e616c2418668fc40a838b6fbec12b54, type: 3}

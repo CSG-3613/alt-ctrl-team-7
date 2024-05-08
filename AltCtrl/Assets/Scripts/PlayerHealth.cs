@@ -13,9 +13,10 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private FMODUnity.EventReference crashEvent;
 
     private ParticleSystem explosionParticle;
-    private bool invincible;
+    [SerializeField] private bool invincible;
+    public bool IsInPlanetTransition = false;
     private int obstacleLayer;
-    private int countdown = 120;
+    private int triggerLayer;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,7 @@ public class PlayerHealth : MonoBehaviour
 
         //set layer to check collisions on
         obstacleLayer = LayerMask.NameToLayer("Obstacle");
+        triggerLayer = LayerMask.NameToLayer("Trigger");
 
         //fetch gamemanager and initialize health
         gm = GameManager.instance;
@@ -34,24 +36,6 @@ public class PlayerHealth : MonoBehaviour
 
         health = maxHealth;
         Time.timeScale = 1;
-    }
-
-    private void FixedUpdate()
-    {
-        if (countdown > 0)
-        {
-            countdown--;
-            if (countdown <= 0)
-            {
-                invincible = false;
-                print("damage cooldown ended");
-            }
-            else
-            {
-                invincible = true;
-            }
-        }
-
     }
 
     private void OnTriggerEnter(Collider other)
@@ -66,14 +50,20 @@ public class PlayerHealth : MonoBehaviour
             health -= 1;
             HealthUIHearts[health].SetActive(false);
             FMODUnity.RuntimeManager.PlayOneShot(crashEvent, transform.position);
-            countdown = 180;
+
+            StartCoroutine(DamageCooldown());
+
             if (health <= 0)
             {
                 explosionParticle.Play();
                 GetComponent<MeshRenderer>().enabled = false;
                 gm.gameOver();
             }
-            //TODO: die.
+
+        }
+        else if (otherLayer == triggerLayer)
+        {
+            if (gm.GetIsInSpace()) { gm.SetIsInSpace(false); }
         }
     }
 
@@ -82,13 +72,30 @@ public class PlayerHealth : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    /*
-    IEnumerator DamageCooldown()
+    public IEnumerator DamageCooldown()
     {
-        new WaitForSeconds(2);
-
-
-        yield return null;
+        SetInvincible();
+        yield return new WaitForSeconds(3);
+        if(!IsInPlanetTransition)
+        {
+            SetVulnerable();
+            print("damage cooldown ended");
+        }
     }
-    */
+
+    public void SetInvincible()
+    {
+        invincible = true;
+    }
+
+    public void SetVulnerable()
+    {
+        invincible = false;
+    }
+
+    public void SetInTransition(bool val)
+    {
+        IsInPlanetTransition = val;
+    }
+
 }
