@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.14538348, g: 0.09414124, b: 0.21716052, a: 1}
+  m_IndirectSpecularColor: {r: 0.14545462, g: 0.0941231, b: 0.21724021, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2297,7 +2297,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -7354,6 +7354,7 @@ MonoBehaviour:
   velocity: 0
   LastTunnel: {fileID: 868069985}
   _currentPlanetIndex: 1
+  _planetChangeTrigger: {fileID: 7870608031611152750, guid: ccb97a308d6163640a8bfb9c6eff7061, type: 3}
   _Planet0TunnelPrefabs:
   - {fileID: 7870608031611152750, guid: 5f8bfeacf0ff40646b717e2052672de3, type: 3}
   _Planet0ObstaclePrefabs:
@@ -8936,7 +8937,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0

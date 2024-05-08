@@ -16,6 +16,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private bool invincible;
     public bool IsInPlanetTransition = false;
     private int obstacleLayer;
+    private int triggerLayer;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,7 @@ public class PlayerHealth : MonoBehaviour
 
         //set layer to check collisions on
         obstacleLayer = LayerMask.NameToLayer("Obstacle");
+        triggerLayer = LayerMask.NameToLayer("Trigger");
 
         //fetch gamemanager and initialize health
         gm = GameManager.instance;
@@ -58,6 +60,10 @@ public class PlayerHealth : MonoBehaviour
                 gm.gameOver();
             }
 
+        }
+        else if (otherLayer == triggerLayer)
+        {
+            if (gm.GetIsInSpace()) { gm.SetIsInSpace(false); }
         }
     }
 

@@ -16,6 +16,7 @@ public class TunnelManager : MonoBehaviour
     [Header("Planet Tunnel/Objects")]
     //index of the current planet, used to swap what set of arrays are being used for obsticle and tunnel generation
     [SerializeField] private int _currentPlanetIndex;
+    [SerializeField] private GameObject _planetChangeTrigger;
     //arrays for all the different planets
     [SerializeField] private GameObject[] _Planet0TunnelPrefabs;
     [SerializeField] private GameObject[] _Planet0ObstaclePrefabs;
@@ -96,8 +97,12 @@ public class TunnelManager : MonoBehaviour
     {
         var tempPlanetIndex = _currentPlanetIndex;
         _currentPlanetIndex = 0;
+        SpawnTrigger();
         Debug.Log("Change Planets");
+        gm.SetIsInSpace(true);
         yield return new WaitForSeconds(3);
+        
+        
 
         if (tempPlanetIndex < _numberOfPlanets - 1)
         {
@@ -107,8 +112,28 @@ public class TunnelManager : MonoBehaviour
         {
             _currentPlanetIndex = 1;
         }
+        SpawnTrigger();
+
+        while (gm.GetIsInSpace() == true)
+        {
+            yield return null;
+        }
         Debug.Log("done Change Planets");
         yield return new WaitForSeconds(3);
     }
 
+    public void ToSpace()
+    {
+        var tempPlanetIndex = _currentPlanetIndex;
+        _currentPlanetIndex = 0;
+        return;
+    }
+
+    public void SpawnTrigger()
+    {
+        GameObject nextTunnel = Instantiate(
+            _planetChangeTrigger, //Gameobject to instantiate
+            LastTunnel.transform.position + (5 - Time.deltaTime * velocity) * Vector3.forward, //TunnelPosition
+            LastTunnel.transform.rotation); //Tunnel Rotation
+    }
 }

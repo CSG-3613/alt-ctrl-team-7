@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float currSpeed;
 
     [SerializeField] private TextMeshProUGUI gameoverText;
+
+    private bool isInSpace;
     
 
     private void Awake()
@@ -105,6 +107,7 @@ public class GameManager : MonoBehaviour
 
         playerHealth.SetInTransition(true);
         yield return sm.CameraFOVIncrease();
+
         yield return tm.ChangePlanets();
 
         FMODUnity.RuntimeManager.PlayOneShot(TeleportPowerDownSFX, transform.position);
@@ -114,5 +117,14 @@ public class GameManager : MonoBehaviour
         playerHealth.SetVulnerable();
         playerHealth.SetInTransition(false);
         StartCoroutine(WorldChanger());
+    }
+
+    public void SetIsInSpace(bool val)
+    {
+        isInSpace = val;
+    }
+    public bool GetIsInSpace()
+    {
+        return isInSpace;
     }
 }
