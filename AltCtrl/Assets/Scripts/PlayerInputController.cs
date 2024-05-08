@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
@@ -11,9 +12,17 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
     private Animator _animator;
     //refrence to the action map we are implementing
 
-    [SerializeField]
-    private float _speedModifier = 3f;
+
+    [SerializeField] private float _speedModifier = 3f;
     //modify how much the player inputs are being multiplied by
+    [SerializeField] private int[] vertInputHistory = { 0, 0 };
+    //input history for the prox sensors
+    [SerializeField] int vertInputIndex = 0;
+    //index for input tracking
+    private int prox1 = 2;
+    //top sensor data value, set for initialization
+    private int prox2 = 2;
+    //bottom sensor data value, set for initialization
 
     //Player movement Limits
     private float _xMin = -8.5f;
@@ -56,7 +65,7 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
     public void FixedUpdate()
     {
         //Store user input as a movement vector
-        Vector3 m_Input = new Vector3(_horizontalForce * _speedModifier, _verticalForce * _speedModifier, 0);
+        Vector3 m_Input = new Vector3(_horizontalForce * _speedModifier, _verticalForce * _speedModifier, transform.position.z);
 
         //Apply the clamped movement vector to the current position, which is
         //multiplied by deltaTime and speed for a smooth MovePosition
@@ -201,7 +210,141 @@ public class PlayerInputController : MonoBehaviour, PlayerControlls.IPlayerMovem
     private Vector3 Clamp(Vector3 value)
     {
         //Clamps the player movement between boundries so the player cannot fall out of the tunnel
-        value = new Vector3(Mathf.Clamp(value.x, _xMin, _xMax), Mathf.Clamp(value.y, _yMin, _yMax), 0);
+        value = new Vector3(Mathf.Clamp(value.x, _xMin, _xMax), Mathf.Clamp(value.y, _yMin, _yMax), transform.position.z);
         return value;
+    }
+
+
+    void OnMessageArrived(string msg)
+    {
+        string[] datas = msg.Split(",");
+        //splits data between ,
+        
+        int leftVal = int.Parse(datas[0]);
+        int rightVal = int.Parse(datas[1]);
+
+        int temp1 = int.Parse(datas[2]);
+        //top prox sensor temp for comparison
+        int temp2 = int.Parse(datas[3]);
+        //bottom prox sensor temp for comparison
+
+        ArduinoLeft(leftVal);
+        ArduinoRight(rightVal);
+
+        if (prox1 != temp1)
+        {
+            prox1 = temp1;
+            vertInputHistory[vertInputIndex % 2] = 1;
+            vertInputIndex = (vertInputIndex % 2) + 1;
+            ArduinoUp();
+        }
+        //if the input is different than the last value
+        if (prox2 != temp2)
+        {
+            prox2 = temp2;
+            vertInputHistory[vertInputIndex % 2] = 2;
+            vertInputIndex = (vertInputIndex % 2) + 1;
+            ArduinoUp();
+        }
+        
+
+    }
+
+    //on right input in action map
+    public void ArduinoRight(int inputValue)
+    {
+        //when the key is pressed
+        if (inputValue > 500)
+        {
+            //set the key as pressed
+            _rightPressed = true;
+            //check if the other direction is pressed
+            if (_leftPressed)
+            {
+                //if it is, zero out the movement
+                Neutral();
+                return;
+            }
+            //if not, move desired direction
+            MoveRight();
+
+        }
+        //when the key is released
+        else if (inputValue < 500)
+        {
+            //set the key as released
+            _rightPressed = false;
+            //check if the other direction is pressed
+            if (_leftPressed)
+            {
+                //if it is, move desired direction
+                MoveLeft();
+                return;
+            }
+            //if not, zero out the movement
+            Neutral();
+        }
+
+    }
+
+    //on left input in action map
+    public void ArduinoLeft(int inputValue)
+    {
+        //when the key is pressed
+        if (inputValue > 500)
+        {
+            //set the key as pressed
+            _leftPressed = true;
+            //check if the other direction is pressed
+            if (_rightPressed)
+            {
+                //if it is, zero out the movement
+                Neutral();
+                return;
+            }
+            //if not, move desired direction
+            MoveLeft();
+        }
+        //when the key is released
+        else if (inputValue < 500)
+        {
+            //set the key as released
+            _leftPressed = false;
+            //check if the other direction is pressed
+            if (_rightPressed)
+            {
+                //if it is, move desired direction
+                MoveRight();
+                return;
+            }
+            //if not, zero out the movement
+            Neutral();
+        }
+    }
+
+    //on up input in action map
+    public void ArduinoUp()
+    {
+        //if scroll is positive
+        if (vertInputHistory[(vertInputIndex - 1) % 2] > vertInputHistory[vertInputIndex % 2])
+        {
+            //add vertical force up, and set animation values for up
+            _verticalForce = 4;
+            _vertMovement = 1;
+            _dampTime = 0.5f;
+        }
+        //if scroll is negitive
+        else if (vertInputHistory[(vertInputIndex - 1) % 2]  < vertInputHistory[vertInputIndex % 2])
+        {
+            //add vertical force down, and set animation values for down
+            _verticalForce = -4;
+            _vertMovement = -1;
+            _dampTime = 0.5f;
+        }
+        //if scroll is equal
+        else
+        {
+            return;
+        }
     }
 }
