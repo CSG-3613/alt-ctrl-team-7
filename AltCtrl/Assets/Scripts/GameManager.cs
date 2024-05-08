@@ -12,6 +12,11 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance { get; private set; }
 
+    [SerializeField] private ScoreManager sm;
+    [SerializeField] private TunnelManager tm;
+    [SerializeField] private GameObject player;
+    private PlayerHealth playerHealth;
+
     [SerializeField] private FMODUnity.EventReference LevelMusic;
     private EventInstance _musicInstance;
 
@@ -47,6 +52,10 @@ public class GameManager : MonoBehaviour
         _musicInstance.release();
         
         currSpeed = startSpeed;
+
+        playerHealth = player.GetComponent<PlayerHealth>();
+
+        StartCoroutine(WorldChanger());
     }
 
     void FixedUpdate()
@@ -80,5 +89,19 @@ public class GameManager : MonoBehaviour
 
     public void OnDestroy(){
         _musicInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+    }
+
+    private IEnumerator WorldChanger()
+    {
+        yield return new WaitForSeconds(10f);
+        Debug.Log("WorldChanger Started");
+        playerHealth.SetInvincible();
+        playerHealth.SetInTransition(true);
+        yield return sm.CameraFOVIncrease();
+        yield return tm.ChangePlanets();
+        yield return sm.CameraFOVDecrease();
+        playerHealth.SetVulnerable();
+        playerHealth.SetInTransition(false);
+        StartCoroutine(WorldChanger());
     }
 }
