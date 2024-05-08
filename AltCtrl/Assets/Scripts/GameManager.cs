@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TunnelManager tm;
     [SerializeField] private GameObject player;
     private PlayerHealth playerHealth;
+    [SerializeField] private GameObject TeleportParticles;
 
     [SerializeField] private FMODUnity.EventReference LevelMusic;
     private EventInstance _musicInstance;
@@ -93,13 +94,15 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator WorldChanger()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(60f);
         Debug.Log("WorldChanger Started");
         playerHealth.SetInvincible();
+        TeleportParticles.SetActive(true);
         playerHealth.SetInTransition(true);
         yield return sm.CameraFOVIncrease();
         yield return tm.ChangePlanets();
         yield return sm.CameraFOVDecrease();
+        TeleportParticles.SetActive(false);
         playerHealth.SetVulnerable();
         playerHealth.SetInTransition(false);
         StartCoroutine(WorldChanger());
