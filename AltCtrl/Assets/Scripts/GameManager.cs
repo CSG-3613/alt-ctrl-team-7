@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private FMODUnity.EventReference LevelMusic;
     private EventInstance _musicInstance;
+    [SerializeField] private FMODUnity.EventReference EnginePowerUp;
+    [SerializeField] private FMODUnity.EventReference EnginePowerDown;
 
     //public [] currState
     [SerializeField] private float startSpeed;
@@ -98,9 +100,15 @@ public class GameManager : MonoBehaviour
         Debug.Log("WorldChanger Started");
         playerHealth.SetInvincible();
         TeleportParticles.SetActive(true);
+
+        //FMODUnity.RuntimeManager.PlayOneShot(EnginePowerUp, transform.position);
+
         playerHealth.SetInTransition(true);
         yield return sm.CameraFOVIncrease();
         yield return tm.ChangePlanets();
+
+        //FMODUnity.RuntimeManager.PlayOneShot(EnginePowerDown, transform.position);
+
         yield return sm.CameraFOVDecrease();
         TeleportParticles.SetActive(false);
         playerHealth.SetVulnerable();
