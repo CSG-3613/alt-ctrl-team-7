@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator WorldChanger()
     {
-        yield return new WaitForSeconds(30f);
+        yield return new WaitForSeconds(90f);
         Debug.Log("WorldChanger Started");
         playerHealth.SetInvincible();
         TeleportParticles.SetActive(true);
