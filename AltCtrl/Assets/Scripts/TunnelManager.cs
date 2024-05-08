@@ -81,7 +81,7 @@ public class TunnelManager : MonoBehaviour
             Instantiate(
                 ObstaclePrefabs[_currentPlanetIndex][Random.Range(0, ObstaclePrefabs[_currentPlanetIndex].Length)], //Gameobject to instantiate
                 LastTunnel.transform.position //center reference point
-                + Random.Range(-1,1) * 5 * Vector3.right + Random.Range(-1, 1) * 5 * Vector3.up, //repositioning logic
+                + Random.Range(-1,2) * 5 * Vector3.right + Random.Range(-1, 2) * 5 * Vector3.up, //repositioning logic
                 LastTunnel.transform.rotation);
         }
         LastTunnel = nextTunnel;

@@ -9,16 +9,19 @@ public class ScoreManager : MonoBehaviour
 
     [SerializeField] public GameManager gm;
     [SerializeField] public TextMeshProUGUI scoreText;
-    
     [SerializeField] public TextMeshProUGUI scoreTextEnd;
+    [SerializeField] public TextMeshProUGUI highScoreText;
 
     [SerializeField] private float scoreVal;
     private float speed;
     private int scoreAsInt;
+    private float highScore;
 
     private void Start()
     {
         scoreVal = 0;
+        highScore = PlayerPrefs.GetInt("HighScore");
+        highScoreText.text = "High Score: " + highScore;
     }
 
     void FixedUpdate()
@@ -33,5 +36,11 @@ public class ScoreManager : MonoBehaviour
         //display scoreAsInt in UI
         scoreText.text = scoreAsInt.ToString();
         scoreTextEnd.text = "Score: " + scoreAsInt.ToString();
+        
+        if (scoreVal > highScore)
+        {
+            PlayerPrefs.SetInt("HighScore", scoreAsInt);
+            highScoreText.text = "High Score: " + scoreAsInt;
+        }
     }
 }
