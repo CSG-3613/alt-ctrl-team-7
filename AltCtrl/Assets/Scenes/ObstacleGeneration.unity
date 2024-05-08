@@ -414,7 +414,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1591540176690947909, guid: b4eda6b8e4c8eb346b603e65545f4f3f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1467680076}
   m_SourcePrefab: {fileID: 100100000, guid: b4eda6b8e4c8eb346b603e65545f4f3f, type: 3}
 --- !u!1 &215838625
 GameObject:
@@ -1597,8 +1600,10 @@ Transform:
 --- !u!1 &978580421
 GameObject:
   m_ObjectHideFlags: 0
+
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
+
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
@@ -2741,7 +2746,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 800332544982350373, guid: fec4693d7048c294d81226749e35d92a, type: 3}
   m_PrefabInstance: {fileID: 579172859}
   m_PrefabAsset: {fileID: 0}
+
 --- !u!1 &1468582004
+
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4134,7 +4141,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 89.7
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -4193,3 +4200,4 @@ SceneRoots:
   - {fileID: 43345342}
   - {fileID: 164301554}
   - {fileID: 2012289079}
+
