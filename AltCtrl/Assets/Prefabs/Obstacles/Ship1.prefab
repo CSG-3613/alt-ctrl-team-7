@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Ship_Bomber_01
       objectReference: {fileID: 0}
+    - target: {fileID: 1029753612667854, guid: 79035093c9587c246b3bb29ffc5838a4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4563042777394416, guid: 79035093c9587c246b3bb29ffc5838a4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.5
@@ -68,6 +72,10 @@ PrefabInstance:
       propertyPath: m_IncludeLayers.m_Bits
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4479565098658356501, guid: 79035093c9587c246b3bb29ffc5838a4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7110654204365181570, guid: 79035093c9587c246b3bb29ffc5838a4, type: 3}
       propertyPath: yRotationMax
       value: 180
@@ -75,6 +83,10 @@ PrefabInstance:
     - target: {fileID: 7110654204365181570, guid: 79035093c9587c246b3bb29ffc5838a4, type: 3}
       propertyPath: yRotationMin
       value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 8283513817797027394, guid: 79035093c9587c246b3bb29ffc5838a4, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 64438274248165340, guid: 79035093c9587c246b3bb29ffc5838a4, type: 3}

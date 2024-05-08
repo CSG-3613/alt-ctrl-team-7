@@ -80,6 +80,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_CenterTube_02
       objectReference: {fileID: 0}
+    - target: {fileID: 1603361566552150, guid: be73b85d8bb808f47bb0a46e41f45db0, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1625402924915240, guid: be73b85d8bb808f47bb0a46e41f45db0, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4152211673555904, guid: be73b85d8bb808f47bb0a46e41f45db0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.5

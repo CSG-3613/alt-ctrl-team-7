@@ -83,6 +83,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Env_Asteroid_Field_01
       objectReference: {fileID: 0}
+    - target: {fileID: 1706800958637316, guid: 84c87c5cabcd16746934df7fda1708c2, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4707158679270136, guid: 84c87c5cabcd16746934df7fda1708c2, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.08
