@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.14545462, g: 0.0941231, b: 0.21724021, a: 1}
+  m_IndirectSpecularColor: {r: 0.14538348, g: 0.09414124, b: 0.21716052, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2398,7 +2398,7 @@ MonoBehaviour:
   - {fileID: 1651538255352537875, guid: cd45d85c32bb56a448419a1aa87232cb, type: 3}
   - {fileID: 7617323793830953412, guid: ef8534739fb11994dae79884b6fce52e, type: 3}
   - {fileID: 1465432656295152175, guid: 5fa9e475761b38c489c5cf424d1a4ed4, type: 3}
-  chanceObstacle: 1
+  chanceObstacle: 0.3
 --- !u!1001 &1419567409
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3182,6 +3182,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f7a091bc8759694f9b761901584de16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelMusic:
+    Guid:
+      Data1: -471395124
+      Data2: 1101283573
+      Data3: -757773171
+      Data4: 2072309962
+    Path: event:/LevelMusic
+  pitchSpeedScale: 0
   startSpeed: 30
   accelSpeed: 0.005
   currSpeed: 30
@@ -4086,7 +4094,6 @@ GameObject:
   - component: {fileID: 2135181511}
   - component: {fileID: 2135181510}
   - component: {fileID: 2135181512}
-  - component: {fileID: 2135181513}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -4173,37 +4180,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attenuationObject: {fileID: 0}
---- !u!114 &2135181513
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2135181508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: -471395124
-      Data2: 1101283573
-      Data3: -757773171
-      Data4: 2072309962
-    Path: event:/LevelMusic
-  Event: 
-  PlayEvent: 1
-  StopEvent: 2
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  AllowNonRigidbodyDoppler: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
