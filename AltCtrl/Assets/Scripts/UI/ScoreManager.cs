@@ -14,6 +14,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI highScoreText;
 
     [SerializeField] private float scoreVal;
+    [SerializeField] private int cameraTargetFOV;
     private float speed;
     private int scoreAsInt;
     private float highScore;
@@ -54,13 +55,13 @@ public class ScoreManager : MonoBehaviour
 
         while (timeElapsed < 3f)
         {
-            gameCamera.fieldOfView = Mathf.Lerp(originalCamFOV, 170, timeElapsed / 3f);
+            gameCamera.fieldOfView = Mathf.Lerp(originalCamFOV, cameraTargetFOV, timeElapsed / 3f);
             timeElapsed += Time.deltaTime;
 
             yield return null;
         }
 
-        gameCamera.fieldOfView = 170;
+        gameCamera.fieldOfView = cameraTargetFOV;
     }
 
     public IEnumerator CameraFOVDecrease()
@@ -69,7 +70,7 @@ public class ScoreManager : MonoBehaviour
 
         while (timeElapsed < 3f)
         {
-            gameCamera.fieldOfView = Mathf.Lerp(170, originalCamFOV, timeElapsed / 3f);
+            gameCamera.fieldOfView = Mathf.Lerp(cameraTargetFOV, originalCamFOV, timeElapsed / 3f);
             timeElapsed += Time.deltaTime;
 
             yield return null;

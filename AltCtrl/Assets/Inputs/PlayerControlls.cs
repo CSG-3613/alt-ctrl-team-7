@@ -112,6 +112,34 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Pause Menu"",
+            ""id"": ""8df7e92b-b55d-49f5-a031-731fd8fd312d"",
+            ""actions"": [
+                {
+                    ""name"": ""TogglePause"",
+                    ""type"": ""Button"",
+                    ""id"": ""c95a977d-ac5f-4a18-be7f-bbe3b5dcb2fb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""1d05f7d2-9dda-41cd-960a-f24c2741cf03"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TogglePause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -121,6 +149,9 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
         m_PlayerMovement_Left = m_PlayerMovement.FindAction("Left", throwIfNotFound: true);
         m_PlayerMovement_Right = m_PlayerMovement.FindAction("Right", throwIfNotFound: true);
         m_PlayerMovement_Up = m_PlayerMovement.FindAction("Up", throwIfNotFound: true);
+        // Pause Menu
+        m_PauseMenu = asset.FindActionMap("Pause Menu", throwIfNotFound: true);
+        m_PauseMenu_TogglePause = m_PauseMenu.FindAction("TogglePause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -240,10 +271,60 @@ public partial class @PlayerControlls: IInputActionCollection2, IDisposable
         }
     }
     public PlayerMovementActions @PlayerMovement => new PlayerMovementActions(this);
+
+    // Pause Menu
+    private readonly InputActionMap m_PauseMenu;
+    private List<IPauseMenuActions> m_PauseMenuActionsCallbackInterfaces = new List<IPauseMenuActions>();
+    private readonly InputAction m_PauseMenu_TogglePause;
+    public struct PauseMenuActions
+    {
+        private @PlayerControlls m_Wrapper;
+        public PauseMenuActions(@PlayerControlls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @TogglePause => m_Wrapper.m_PauseMenu_TogglePause;
+        public InputActionMap Get() { return m_Wrapper.m_PauseMenu; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(PauseMenuActions set) { return set.Get(); }
+        public void AddCallbacks(IPauseMenuActions instance)
+        {
+            if (instance == null || m_Wrapper.m_PauseMenuActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PauseMenuActionsCallbackInterfaces.Add(instance);
+            @TogglePause.started += instance.OnTogglePause;
+            @TogglePause.performed += instance.OnTogglePause;
+            @TogglePause.canceled += instance.OnTogglePause;
+        }
+
+        private void UnregisterCallbacks(IPauseMenuActions instance)
+        {
+            @TogglePause.started -= instance.OnTogglePause;
+            @TogglePause.performed -= instance.OnTogglePause;
+            @TogglePause.canceled -= instance.OnTogglePause;
+        }
+
+        public void RemoveCallbacks(IPauseMenuActions instance)
+        {
+            if (m_Wrapper.m_PauseMenuActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IPauseMenuActions instance)
+        {
+            foreach (var item in m_Wrapper.m_PauseMenuActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_PauseMenuActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public PauseMenuActions @PauseMenu => new PauseMenuActions(this);
     public interface IPlayerMovementActions
     {
         void OnLeft(InputAction.CallbackContext context);
         void OnRight(InputAction.CallbackContext context);
         void OnUp(InputAction.CallbackContext context);
+    }
+    public interface IPauseMenuActions
+    {
+        void OnTogglePause(InputAction.CallbackContext context);
     }
 }

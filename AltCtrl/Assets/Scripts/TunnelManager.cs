@@ -27,7 +27,7 @@ public class TunnelManager : MonoBehaviour
     [SerializeField] private GameObject[] _Planet3TunnelPrefabs;
     [SerializeField] private GameObject[] _Planet3ObstaclePrefabs;
     //chance to spawn an obsticle
-    [SerializeField] private float chanceObstacle = 0.3f;
+    [SerializeField] private float chanceObstacle = 0.2f;
 
     //2D array initialization needs a static int value, This cannot be seen in the inspector
     private static int _numberOfPlanets = 4;
@@ -119,6 +119,11 @@ public class TunnelManager : MonoBehaviour
             yield return null;
         }
         Debug.Log("done Change Planets");
+
+        if (chanceObstacle < 1) { chanceObstacle += 0.05f; }
+        else if (chanceObstacle >= 1) { chanceObstacle = 1; }
+        //increase the number of obstacles that spawn
+
         yield return new WaitForSeconds(3);
     }
 

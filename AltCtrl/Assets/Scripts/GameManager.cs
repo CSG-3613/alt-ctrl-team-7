@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance { get; private set; }
 
+    [SerializeField] private float timeBetweenLevels;
+
     [SerializeField] private ScoreManager sm;
     [SerializeField] private TunnelManager tm;
     [SerializeField] private GameObject player;
@@ -67,7 +69,7 @@ public class GameManager : MonoBehaviour
     {
         currSpeed += accelSpeed;
         
-        _musicInstance.setPitch(Math.Max(1, currSpeed/40));
+        _musicInstance.setPitch(Math.Max(1, currSpeed/30));
         //print(currSpeed);
     }
 
@@ -98,10 +100,12 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator WorldChanger()
     {
-        yield return new WaitForSeconds(90f);
+        yield return new WaitForSeconds(timeBetweenLevels);
         Debug.Log("WorldChanger Started");
         playerHealth.SetInvincible();
         TeleportParticles.SetActive(true);
+        player.GetComponent<PlayerInputController>().enabled = false;
+        StartCoroutine(MovePlayerToCenterScreen());
 
         FMODUnity.RuntimeManager.PlayOneShot(TeleportPowerUpSFX, transform.position);
 
@@ -112,8 +116,13 @@ public class GameManager : MonoBehaviour
 
         FMODUnity.RuntimeManager.PlayOneShot(TeleportPowerDownSFX, transform.position);
 
+        TeleportParticles.GetComponentInChildren<TunnelFade>().StartCoroutine("FadeOut");
         yield return sm.CameraFOVDecrease();
         TeleportParticles.SetActive(false);
+
+        player.GetComponent<PlayerInputController>().enabled = true;
+
+        yield return new WaitForSeconds(2f);
         playerHealth.SetVulnerable();
         playerHealth.SetInTransition(false);
         StartCoroutine(WorldChanger());
@@ -126,5 +135,15 @@ public class GameManager : MonoBehaviour
     public bool GetIsInSpace()
     {
         return isInSpace;
+    }
+
+    private IEnumerator MovePlayerToCenterScreen()
+    {
+        while (!player.GetComponent<PlayerInputController>().enabled)
+        {
+            player.transform.position = Vector3.MoveTowards(player.transform.position, new Vector3(-2.4f, 1.6f, -34.5f), 0.1f);
+            yield return null;
+        }
+        
     }
 }
